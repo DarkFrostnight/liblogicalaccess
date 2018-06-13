@@ -1228,8 +1228,6 @@ ByteVector DESFireCrypto::desfire_iso_encrypt(
             iv.reset(new openssl::DESInitializationVector(
                 openssl::DESInitializationVector::createFromData(d_lastIV)));
         }
-        std::cout << "LAST IV BEFORE CIPHER: " << d_lastIV << ". FULL PAYLOAD:" << decdata
-                  << std::endl;
         cipher->cipher(decdata, encdata, *isokey, *iv, false);
         if (cipher == d_cipher)
         {

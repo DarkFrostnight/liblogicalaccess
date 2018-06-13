@@ -514,7 +514,7 @@ class LIBLOGICALACCESS_API DESFireCrypto
      * Retrieve the IKS signature (if requested) for the last decrypted
      * data block.
      *
-     * This will return the empty string if no IKS was used or if the operation
+     * This will return an empty object if no IKS was used or if the operation
      * mode does make sense to have that.
      */
     SignatureResult get_last_signature() const;
