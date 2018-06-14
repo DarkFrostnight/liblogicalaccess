@@ -318,6 +318,15 @@ class LIBLOGICALACCESS_API DESFireCrypto
                                       const ByteVector &encRndB);
 
     /**
+     * Silimar to aes_authenticate_PICC1 except it uses a generic Key rather than
+     * key material as bytes.
+     *
+     * KEY DIVERSIFICATION IS NOT SUPPORTED.
+     */
+    ByteVector aes_authenticate_PICC1_GENERIC(unsigned char keyno, const std::shared_ptr<Key> key,
+                                              const ByteVector &encRndB);
+
+    /**
      * \brief Authenticate on the card, step 2 for mutual authentication using AES.
      * \param keyno The key number to use
      * \param encRndA1 The encrypted random number A

@@ -26,6 +26,7 @@
 #include <logicalaccess/iks/IslogKeyServer.hpp>
 #include <logicalaccess/iks/RemoteCrypto.hpp>
 #include <logicalaccess/dynlibrary/librarymanager.hpp>
+#include <logicalaccess/services/aes_crypto_service.hpp>
 
 namespace logicalaccess
 {
@@ -952,6 +953,38 @@ ByteVector DESFireCrypto::aes_authenticate_PICC1(unsigned char keyno,
     return ret;
 }
 
+    ByteVector DESFireCrypto::aes_authenticate_PICC1_GENERIC(unsigned char keyno, const std::shared_ptr<Key> key,
+                                                             const ByteVector &encRndB) {
+        d_sessionKey.clear();
+
+        AESCryptoService aes_crypto;
+        d_rndB = aes_crypto.aes_decrypt(encRndB, {}, key);
+        d_lastIV = ByteVector(encRndB.end() - 16, encRndB.end());
+
+        ByteVector rndB1;
+        rndB1.insert(rndB1.end(), d_rndB.begin() + 1, d_rndB.begin() + 1 + 15);
+        rndB1.push_back(d_rndB[0]);
+
+        EXCEPTION_ASSERT_WITH_LOG(RAND_status() == 1, LibLogicalAccessException,
+                                  "Insufficient enthropy source");
+
+        d_rndA.clear();
+        d_rndA.resize(16);
+        if (RAND_bytes(&d_rndA[0], static_cast<int>(d_rndA.size())) != 1)
+        {
+            THROW_EXCEPTION_WITH_LOG(LibLogicalAccessException,
+                                     "Cannot retrieve cryptographically strong bytes");
+        }
+
+        ByteVector rndAB;
+        rndAB.insert(rndAB.end(), d_rndA.begin(), d_rndA.end());
+        rndAB.insert(rndAB.end(), rndB1.begin(), rndB1.end());
+
+        ByteVector ret = aes_crypto.aes_encrypt(rndAB, d_lastIV, key);
+        d_lastIV = ByteVector(ret.end() - 16, ret.end());
+        return ret;
+    }
+
 void DESFireCrypto::aes_authenticate_PICC2(unsigned char keyno,
                                            const ByteVector &encRndA1)
 {
@@ -1370,4 +1403,5 @@ SignatureResult DESFireCrypto::get_last_signature() const
 
     return SignatureResult{};
 }
+
 }

@@ -18,11 +18,32 @@ namespace logicalaccess
             return "PKCSStorage";
         }
 
+        const ByteVector &get_key_id() const {
+            return pkcs_object_id_;
+        }
+
+        size_t get_slot_id() const {
+            return slot_id_;
+        }
+
+        const std::string &pkcs_session_password() const {
+            return pkcs_session_password_;
+        }
+
     private:
         /**
          * The CKA_ID attribute value that represent
          * the ID of the key on the PKCS token.
          */
-        std::string pkcs_object_id_;
+        ByteVector pkcs_object_id_;
+
+        // Password to log into the PKCS session.
+        // This feel like a weird place to store that...
+        std::string pkcs_session_password_;
+
+        /*
+         * PKCS Token slot id.
+         */
+        size_t slot_id_;
     };
 }
