@@ -438,7 +438,7 @@ std::shared_ptr<IAESCryptoService> LibraryManager::getPKCSAESCrypto()
         if (lib->hasSymbol("getPKCSAESCrypto"))
         {
             int (*fptr)(IAESCryptoServicePtr &) = nullptr;
-            fptr = reinterpret_cast<decltype(fptr)>(lib->getSymbol("PKCSAESCrypto"));
+            fptr = reinterpret_cast<decltype(fptr)>(lib->getSymbol("getPKCSAESCrypto"));
             assert(fptr);
             fptr(pkcs_crypto);
             if (pkcs_crypto)

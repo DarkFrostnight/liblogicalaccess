@@ -12,7 +12,7 @@ namespace logicalaccess
 ByteVector AESCryptoService::aes_encrypt(const ByteVector &data, const ByteVector &iv,
                                          std::shared_ptr<Key> key)
 {
-    perform_operation(data, iv, key, true);
+   return  perform_operation(data, iv, key, true);
 }
 
 ByteVector AESCryptoService::in_memory(const ByteVector &data, const ByteVector &iv,

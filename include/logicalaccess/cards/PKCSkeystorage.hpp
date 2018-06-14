@@ -26,14 +26,28 @@ class LIBLOGICALACCESS_API PKCSKeyStorage : public KeyStorage
         return pkcs_object_id_;
     }
 
+    void set_key_id(const ByteVector &keyid)
+    {
+        pkcs_object_id_ = keyid;
+    }
+
     size_t get_slot_id() const
     {
         return slot_id_;
     }
 
-    const std::string &pkcs_session_password() const
+    void set_slot_id(size_t slot_id) {
+        slot_id_ = slot_id;
+    }
+
+    const std::string &get_pkcs_session_password() const
     {
         return pkcs_session_password_;
+    }
+
+    void set_pkcs_session_password(const std::string &pwd)
+    {
+        pkcs_session_password_ = pwd;
     }
 
   private:

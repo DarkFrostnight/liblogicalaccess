@@ -324,7 +324,7 @@ class LIBLOGICALACCESS_API DESFireCrypto
      * KEY DIVERSIFICATION IS NOT SUPPORTED.
      */
     ByteVector aes_authenticate_PICC1_GENERIC(unsigned char keyno,
-                                              const std::shared_ptr<Key> key,
+                                              const std::shared_ptr<Key> &key,
                                               const ByteVector &encRndB);
 
     /**
@@ -333,6 +333,9 @@ class LIBLOGICALACCESS_API DESFireCrypto
      * \param encRndA1 The encrypted random number A
      */
     void aes_authenticate_PICC2(unsigned char keyno, const ByteVector &encRndA1);
+
+    void aes_authenticate_PICC2_GENERIC(unsigned char keyno,
+                                        const std::shared_ptr<Key> &key, const ByteVector &encRndA1);
 
     /**
      * \brief Init buffer for temporised data.

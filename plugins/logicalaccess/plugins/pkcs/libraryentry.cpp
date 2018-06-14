@@ -24,7 +24,7 @@ class AESCryptoPKCSProvider : public IAESCryptoService
         EXCEPTION_ASSERT_WITH_LOG(storage, LibLogicalAccessException, "No key storage.");
 
         auto session        = cppkcs::open_session(storage->get_slot_id(), 0);
-        std::string pw_copy = storage->pkcs_session_password();
+        std::string pw_copy = storage->get_pkcs_session_password();
         session.login(cppkcs::SecureString(std::move(pw_copy)));
 
         auto pkcs_key = find_key(session, *storage);
@@ -43,7 +43,7 @@ class AESCryptoPKCSProvider : public IAESCryptoService
         EXCEPTION_ASSERT_WITH_LOG(storage, LibLogicalAccessException, "No key storage.");
 
         auto session        = cppkcs::open_session(storage->get_slot_id(), 0);
-        std::string pw_copy = storage->pkcs_session_password();
+        std::string pw_copy = storage->get_pkcs_session_password();
         session.login(cppkcs::SecureString(std::move(pw_copy)));
 
         auto pkcs_key = find_key(session, *storage);
