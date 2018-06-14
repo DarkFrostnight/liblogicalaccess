@@ -19,7 +19,7 @@ typedef enum {
     KST_READER_MEMORY   = 0x01, /* Key stored in reader memory */
     KST_SAM             = 0x02, /* Key stored in SAM */
     KST_SERVER          = 0x03, /* Key store in IKS */
-    KST_PKCS = 0x04 /* Key store in PKCS token */
+    KST_PKCS            = 0x04  /* Key store in PKCS token */
 } KeyStorageType;
 
 /**

@@ -323,7 +323,8 @@ class LIBLOGICALACCESS_API DESFireCrypto
      *
      * KEY DIVERSIFICATION IS NOT SUPPORTED.
      */
-    ByteVector aes_authenticate_PICC1_GENERIC(unsigned char keyno, const std::shared_ptr<Key> key,
+    ByteVector aes_authenticate_PICC1_GENERIC(unsigned char keyno,
+                                              const std::shared_ptr<Key> key,
                                               const ByteVector &encRndB);
 
     /**
